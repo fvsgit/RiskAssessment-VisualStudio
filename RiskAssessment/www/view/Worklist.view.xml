@@ -1,0 +1,29 @@
+<mvc:View controllerName="riskassessment.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic">
+	<semantic:DetailPage id="page" title="{i18n>worklistTitle}">
+		<semantic:content>
+			<List items="{main>/Assessments}">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Risks" level="H2"/>
+						<ToolbarSpacer/>
+						<Button id="btnAdd" icon="sap-icon://add" press="onPress_btnAdd" text="Add New"/>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<ObjectListItem title="{main>Name}" type="Active" press="onPress" number="{main>Score}" numberUnit="{main>ScoreText}"
+						numberState="{= ${main>Score} &lt; 6 ? 'Success' : ${main>Score} &gt; 5 &amp;&amp; ${main>Score} &lt; 13 ? 'Warning' : 'Error' }">
+						<firstStatus>
+							<ObjectStatus text="Signed by manager" state="Success" visible="{= ${main>ManagerSignature} !== '' &amp;&amp; ${main>Score} &gt; 17 }" icon="sap-icon://accept"/>
+						</firstStatus>
+						<attributes>
+							<ObjectAttribute text="{main>Description}"/>
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</semantic:content>
+		<semantic:positiveAction>
+			<semantic:PositiveAction id="btnSubmit" text="Submit" press="onPress_btnSubmit"/>
+		</semantic:positiveAction>
+	</semantic:DetailPage>
+</mvc:View>
